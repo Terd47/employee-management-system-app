@@ -1,0 +1,29 @@
+{
+  "name": "employee-management-system-app",
+  "version": "1.0.0",
+  "description": "Command line application with functionality to view all employees, availables role, salary, departments and also add data to these categories",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Terd47/employee-management-system-app.git"
+  },
+  "keywords": [
+    "node",
+    "index.js"
+  ],
+  "author": "terd47",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Terd47/employee-management-system-app/issues"
+  },
+  "homepage": "https://github.com/Terd47/employee-management-system-app#readme",
+  "dependencies": {
+    "asciiart-logo": "^0.2.6",
+    "express": "^4.17.1",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}
