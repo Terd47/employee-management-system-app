@@ -1,4 +1,4 @@
-const cliPrompts = {
+const emsPrompts = {
     main: [{
         type: 'list',
         name: 'option',
@@ -82,4 +82,4 @@ const cliPrompts = {
 
 };
 
-module.exports = cliPrompts;
+module.exports = emsPrompts;
