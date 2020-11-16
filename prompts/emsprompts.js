@@ -11,7 +11,8 @@ const emsPrompts = {
             { name:  'View All Departments', value: 4 },
             { name:  'Add A New Department', value: 5 },
             { name:   "Update an Employee's Role", value: 6 },
-            { name: 'EXIT', value: 7 }
+            { name:   "Delete a Department", value: 7},
+            { name: 'EXIT', value: 8 }
         ]
     }],
     newEmployee: [
@@ -63,6 +64,13 @@ const emsPrompts = {
             type: 'input',
             name: 'department',
             message: 'Enter new Department',
+        }
+    ],
+    delDepartment: [
+        {
+            type: 'input',
+            name: 'departmentID',
+            message: 'please enter Department ID to delete',
         }
     ],
     updateEmployeeRole: [

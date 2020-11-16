@@ -25,51 +25,71 @@ class EMS {
         this.con.end();
     }
 
-    getEmployeeData(employee = '*') {
+    async getAllEmployees(employee = '*') {
 
         let query = `SELECT ${employee} from employee`;
-        let data = this.runQuery(query);
+        let data = await this.runQuery(query);
 
         return data;
     }
 
-    getDepartmentData() {
-        let query = `SELECT employee from employee`;
-        let data = this.runQuery(query);
+    async getAllDepartments() {
+        let query = `SELECT * from department`;
+        let data = await this.runQuery(query);
 
         return data;
     }
 
-    getRoleData() {
-        let query = `SELECT employee from employee`;
-        let data = this.runQuery(query);
+    async getAllRoles() {
+        let query = `SELECT * from role`;
+        let data = await this.runQuery(query);
 
         return data;
     }
 
-    addEmployee() {
-        let query = `SELECT employee from employee`;
-        let data = this.runQuery(query);
+    async addEmployee(employee) {
+        let query = `INSERT INTO employee_db.employee
+        (first_name, last_name, role_id, manager_id)
+        VALUES('${employee.fName}', '${employee.lName}', '${employee.roleID}', '${employee.managerID}');`;
+        let data = await this.runQuery(query);
 
         return data;
     }
 
-    addDepartment() {
-        let query = `SELECT employee from employee`;
-        let data = this.runQuery(query);
+    async addDepartment(department) {
+        let query = `INSERT INTO employee_db.department
+        (name)
+        VALUES('${department.department}');
+        `;
+        let data = await this.runQuery(query);
 
         return data;
     }
 
-    addRole() {
-        let query = `SELECT employee from employee`;
-        let data = this.runQuery(query);
+    
+    async delDepartment(department) {
+        let query = `DELETE FROM employee_db.department
+        WHERE id=${department.departmentID};
+        `;
+        let data = await this.runQuery(query);
 
         return data;
     }
 
-    updateRole() {
-        let query = `SELECT employee from employee`;
+    addNewRole(role) {
+        
+        let { title, salary, departmentID } = role;
+        let query = `INSERT INTO role (title, salary, department_id) VALUES('${title}', '${salary}', '${departmentID}')`;
+        this.con.query(query, function(err, result){
+            if(err) throw err;
+            console.log("New Role Added");
+        });
+    }
+
+    async updateRole(e) {
+        let query = `UPDATE employee
+        SET  role_id=${e.roleID} WHERE id=${e.employeeID};
+        `;
         let data = this.runQuery(query);
 
         return data;
@@ -82,8 +102,11 @@ class EMS {
         return data;
     }
 
-    updateDepartment() {
-        let query = `SELECT employee from employee`;
+    updateDepartment(e) {
+        let query = `UPDATE employee_db.employee
+        SET  role_id=${e.roleID},
+        WHERE id=${e.employeeID};
+        `;
         let data = this.runQuery(query);
 
         return data;
@@ -91,24 +114,23 @@ class EMS {
 
     runQuery(sql) {
 
-        let data;
-
+    return new Promise((res, reject)=>{
         this.con.query(sql, function (err, result) {
             if (err) throw err;
-            
-            console.log(result);
-            data = result;
+            if(result){
+                res(result)
+            }
         });
-
-        return data;
+        console.log(reject);
+    });
     }
 
 }
 
-let database = new EMS("employee_db");
-database.createConnection();
+let db = new EMS("employee_db");
+db.createConnection();
 
-database.getEmployeeData();
+// db.getEmployeeData();
 
 
 module.exports = EMS;
